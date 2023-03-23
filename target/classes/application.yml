@@ -1,0 +1,14 @@
+server:
+  port: 9090
+
+spring:
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: http://localhost:8080
+      eager: true
+
+  application:
+    name: nacos-provider
