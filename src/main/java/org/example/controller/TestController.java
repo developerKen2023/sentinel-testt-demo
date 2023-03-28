@@ -5,9 +5,6 @@ import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.context.ContextUtil;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.alibaba.csp.sentinel.slots.block.RuleConstant;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,36 +19,16 @@ public class TestController {
     @Value("${server.port}")
     private String port;
 
-    @Value("${origin.source}")
-    private String originSource;
-
-    @GetMapping("/justTestA")
-    public String justTestA(){
-        Entry entry = null;
-        try {
-            String resourceName = "/kenTest/{aaa}";
-            ContextUtil.enter(resourceName, originSource);
-            entry = SphU.entry(resourceName);
-            //被保护的逻辑
-            return originSource + "-" + port;
-        } catch (BlockException e) {
-            log.info("限流或者降级了...", e);
-            return "限流或者降级了...";
-        } finally {
-            if (entry != null) {
-                entry.exit();
-            }
-            ContextUtil.exit();
-        }
-    }
-
     @GetMapping("/kenTest/{aaa}")
     public String justTest(@PathVariable("aaa") String aaa) {
+        // 通过RestTemplate调用其他component的接口...
         return aaa + "-" + port;
     }
 
-    @GetMapping("/kenTest")
-    public String justTestB(@RequestParam("param") String param) {
-        return param + "-" + port;
+    @GetMapping("/testHot")
+    @SentinelResource("hot")
+    public String justTestB(@RequestParam(required = false) String param1,
+                            @RequestParam(required = false) String param2) {
+        return param1 + "-" + param2;
     }
 }
