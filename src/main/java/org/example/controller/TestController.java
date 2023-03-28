@@ -1,10 +1,6 @@
 package org.example.controller;
 
-import com.alibaba.csp.sentinel.Entry;
-import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.csp.sentinel.context.ContextUtil;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
