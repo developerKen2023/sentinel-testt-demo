@@ -11,10 +11,10 @@ public class ParamFLowRuleTest {
                 "http://localhost:9091/testHot?param1=other",
                 "http://localhost:9092/testHot?param1=MRPlus"
         };
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 1; i++) {
             restTemplate.getForObject(uris[0],String.class);
         }
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 45; i++) {
             restTemplate.getForObject(uris[1],String.class);
         }
         for (int i = 0; i < 5; i++) {

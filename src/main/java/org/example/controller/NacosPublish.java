@@ -4,7 +4,6 @@ import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.NacosServiceManager;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.PropertyKeyConst;
@@ -13,8 +12,12 @@ import com.alibaba.nacos.api.config.ConfigType;
 import com.alibaba.nacos.api.exception.NacosException;
 import org.example.domain.PublishEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.Properties;
 
 @RestController
@@ -39,6 +42,6 @@ public class NacosPublish {
         rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
         rule.setLimitApp("default");
         return configService.publishConfig("nacos-provider-flow-rules", nacosDiscoveryProperties.getGroup(),
-                JSON.toJSONString(rule), ConfigType.JSON.getType());
+                JSON.toJSONString(Collections.singletonList(rule)), ConfigType.JSON.getType());
     }
 }

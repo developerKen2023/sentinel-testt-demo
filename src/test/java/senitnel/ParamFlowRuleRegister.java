@@ -4,7 +4,6 @@ import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowItem;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRuleManager;
-import org.example.SentinelTestDemoApplication;
 import org.example.domain.SourceCategory;
 
 import java.util.ArrayList;

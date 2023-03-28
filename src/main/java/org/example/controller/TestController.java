@@ -19,29 +19,6 @@ public class TestController {
     @Value("${server.port}")
     private String port;
 
-    @Value("${origin.source}")
-    private String originSource;
-
-    @GetMapping("/justTestA")
-    public String justTestA() {
-        Entry entry = null;
-        try {
-            String resourceName = "/kenTest/{aaa}";
-            ContextUtil.enter(resourceName, originSource);
-            entry = SphU.entry(resourceName);
-            //被保护的逻辑
-            return originSource + "-" + port;
-        } catch (BlockException e) {
-            log.info("限流或者降级了...", e);
-            return "限流或者降级了...";
-        } finally {
-            if (entry != null) {
-                entry.exit();
-            }
-            ContextUtil.exit();
-        }
-    }
-
     @GetMapping("/kenTest/{aaa}")
     public String justTest(@PathVariable("aaa") String aaa) {
         // 通过RestTemplate调用其他component的接口...
